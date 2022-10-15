@@ -34,36 +34,35 @@ public class MortgageCalculatorV3 {
     }
 
     public static void main(String[] args) {
+        System.out.println("Testing mortgage class with negative principal amount");
+        MortgageClass mortgageClassNegativePrincipalAmount = new MortgageClass (-6, 7, 8);
+        mortgageClassNegativePrincipalAmount.dataValidation();
+
+        System.out.println("Testing mortgage class with negative term");
+        MortgageClass mortgageClassNegativeTerm = new MortgageClass(100006, -7, 9 );
+        mortgageClassNegativePrincipalAmount.dataValidation();
+
+        System.out.println("Testing mortgage class with negative rate");
+        MortgageClass mortgageClassNegativeRate = new MortgageClass(100004, 7, -3);
+        mortgageClassNegativePrincipalAmount.dataValidation();
+
+        System.out.println("Testing mortgage class with principal amount of of range 100000 and 2000000");
+        MortgageClass mortgageClassPrincipalAmountOutOfRange = new MortgageClass(3, 7, 3);
+        mortgageClassNegativePrincipalAmount.dataValidation();
+
         // Grabbing user input and storing it in array
         String[] userInputs=userPrompt();
         // Parsing principal amount from string to double
         double principalAmount=Double.parseDouble(userInputs[0]); // returns double primitive;
-        // Checking principal amount for non-negative
-        if (!checkForNegative(principalAmount)){
-            System.out.println("Please enter a non negative value for principal amount");
-            return;
-        }
-        //Checking principal amount between 100000 and 2000000
-        if (principalAmount<100000 || principalAmount>2000000) {
-            System.out.println("Please enter a value between 100,000 and 1,000,000 (inclusive)");
-            return;
-        }
         // Parsing term from string to int
         int term = Integer.parseInt(userInputs[1]);
-        // Checking term for non-negative
-        if (!checkForNegative(term)){
-            System.out.println("Please enter a non negative value for term amount");
-            return;
-        }
         // Parsing rate from string to double
         double rate=Double.parseDouble(userInputs[2]);
-        // Checking rate for non-negative
-        if (!checkForNegative(rate)){
-            System.out.println("Please enter a non negative value for the rate amount");
-            return;
-        }
+
         mortgageClass = new MortgageClass(principalAmount, term, rate);
-        mortgageClass.calculateMonthlyPayment();
-        mortgageClass.printMonthlyPayment();
+        if(mortgageClass.dataValidation()) {
+            mortgageClass.calculateMonthlyPayment();
+            mortgageClass.printMonthlyPayment();
+        }
     }
 }

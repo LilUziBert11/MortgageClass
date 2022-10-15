@@ -15,10 +15,37 @@ public class MortgageClass {
     private double monthlyPayment =0;
 
     public MortgageClass(double principalAmount, int term, double rate){
+
         this.principalAmount = principalAmount;
         this.term = term;
         this.rate = rate;
 
+    }
+    public boolean dataValidation(){
+        // Checking principal amount for non-negative
+        if (!checkForNegative(this.principalAmount)){
+            System.out.println("Please enter a non negative value for principal amount");
+            return false;
+        }
+        //Checking principal amount between 100000 and 2000000
+        if (this.principalAmount<100000 || this.principalAmount>2000000) {
+            System.out.println("Please enter a value between 100,000 and 1,000,000 (inclusive)");
+            return false;
+        }
+        // Checking term for non-negative
+        if (!checkForNegative(this.term)){
+            System.out.println("Please enter a non negative value for term amount");
+            return false;
+        }
+        // Checking rate for non-negative
+        if (!checkForNegative(this.rate)) {
+            System.out.println("Please enter a non negative value for the rate amount");
+            return false;
+        }
+        return true;
+    }
+    private static boolean checkForNegative(double value){
+        return value>=0;
     }
     // Getters and Setters
     public void setPrincipalAmount(double principalAmount){
